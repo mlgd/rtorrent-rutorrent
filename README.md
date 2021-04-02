@@ -3,7 +3,7 @@
 Debian-based tags:
 
 - rtorrent-rutorrent:debian-buster-slim
-___
+
 ## Environment variables
 
 - DHT_PORT: DHT UDP port, default is 49160
@@ -15,11 +15,11 @@ ___
 - PHP_MEM: php-fpm memory limit, default is 256M
 - NOIPV6: disable IPv6 binding in nginx (set to 1), default is not set
 - WEBROOT: alternative webroot, default is /
-___
+
 ## Volumes exposed
 
 - /downloads: folder containing downloaded files
-___
+
 ## Run container 
 
 > docker run -d --name=seedbox \\\
@@ -32,7 +32,7 @@ ___
 >       -e PHP_MEM=256M \\\
 >       -v c:\temp:/downloads \\\
 >       mlgd/rtorrent-rutorrent:debian-buster-slim
-___
+
 ## Windows 10 development : port access denied
 
 > net stop winnat
