@@ -14,6 +14,7 @@ Debian-based tags:
 - INCOMING_PORT: incoming TCP port range, default is 49161-49161
 - USR_ID: rtorrent uid, default is 1000 
 - GRP_ID: rtorrent gid, default is 1000
+- SCGI_PORT: rtorrent SCGI port, default 5000
 - HTTP_PORT: NGINX http port, default 80
 - HTTPS_PORT: NGINX https port, default 443
 - PHP_MEM: php-fpm memory limit, default is 256M

@@ -2,6 +2,9 @@
 
 set -x
 
+NG_HTTP_PORT=${HTTP_PORT:=80}
+RT_SCGI_PORT=${SCGI_PORT:=5000}
+
 chown -R www-data:www-data /var/www/rutorrent
 cp /downloads/.htpasswd /var/www/rutorrent/
 mkdir -p /downloads/.rutorrent/torrents
@@ -27,9 +30,14 @@ if [ -e /downloads/nginx.key ] && [ -e /downloads/nginx.crt ]; then
     site=rutorrent-tls.nginx
 fi
 
-cp /root/$site /etc/nginx/sites-enabled/
-[ -n "$NOIPV6" ] && sed -i 's/listen \[::\]:/#/g' /etc/nginx/sites-enabled/$site
-[ -n "$WEBROOT" ] && ln -s /var/www/rutorrent /var/www/rutorrent/$WEBROOT
+if [ ! -e /etc/nginx/sites-enabled/$site ]; then
+    cp /root/$site /etc/nginx/sites-enabled/
+    sed -i 's/listen 80 default_server/listen '$NG_HTTP_PORT' default_server/g' /etc/nginx/sites-enabled/$site
+    sed -i 's/listen \[::\]:80 default_server/listen [::]:'$NG_HTTP_PORT' default_server/g' /etc/nginx/sites-enabled/$site
+    sed -i 's/scgi_pass 127\.0\.0\.1:5000;/scgi_pass 127.0.0.1:'$RT_SCGI_PORT';/g' /etc/nginx/sites-enabled/$site
+    [ -n "$NOIPV6" ] && sed -i 's/listen \[::\]:/#/g' /etc/nginx/sites-enabled/$site
+    [ -n "$WEBROOT" ] && ln -s /var/www/rutorrent /var/www/rutorrent/$WEBROOT
+fi
 
 # Check if .htpasswd presents
 if [ -e /downloads/.htpasswd ]; then
@@ -40,4 +48,3 @@ else
 fi
 
 nginx -g "daemon off;"
-

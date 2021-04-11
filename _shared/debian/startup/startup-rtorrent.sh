@@ -4,6 +4,7 @@ set -x
 
 RT_INCOMING_PORT=${INCOMING_PORT:=49161-49161}
 RT_DHT_PORT=${DHT_PORT:=49160}
+RT_SCGI_PORT=${SCGI_PORT:=5000}
 
 # set rtorrent user and group id
 RT_UID=${USR_ID:=1000}
@@ -19,6 +20,7 @@ mkdir -p /downloads/.rtorrent/watch
 mkdir -p /downloads/.log/rtorrent
 if [ ! -e /downloads/.rtorrent/.rtorrent.rc ]; then
     cp /root/.rtorrent.rc /downloads/.rtorrent/
+    sed -i 's/scgi_port=127\.0\.0\.1:5000$/scgi_port=127.0.0.1:'$RT_SCGI_PORT'/g' /downloads/.rtorrent/.rtorrent.rc
     sed -i 's/network\.port_range\.set *=.*$/network.port_range.set = '$RT_INCOMING_PORT'/g' /downloads/.rtorrent/.rtorrent.rc
     sed -i 's/network\.port_random\.set *=.*$/network.port_random.set = no/g' /downloads/.rtorrent/.rtorrent.rc
     sed -i 's/dht\.port\.set *=.*$/dht.port.set = '$RT_DHT_PORT'/g' /downloads/.rtorrent/.rtorrent.rc
