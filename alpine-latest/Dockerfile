@@ -14,6 +14,7 @@ RUN apk -U upgrade && \
     apk add --no-cache py3-pip gcc g++ musl-dev libffi-dev openssl-dev && \
     pip install cloudscraper && \
     apk del py-pip gcc g++ musl-dev libffi-dev openssl-dev && \
+    rm -rf /var/cache/apk/* && \
     git clone https://github.com/mlgd/rtorrent-rutorrent.git a && \
     mkdir -p /var/www && cd /var/www && \
     git clone https://github.com/Novik/ruTorrent.git rutorrent && \

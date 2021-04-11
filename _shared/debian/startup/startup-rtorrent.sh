@@ -24,7 +24,7 @@ if [ ! -e /downloads/.rtorrent/.rtorrent.rc ]; then
     sed -i 's/network\.port_range\.set *=.*$/network.port_range.set = '$RT_INCOMING_PORT'/g' /downloads/.rtorrent/.rtorrent.rc
     sed -i 's/network\.port_random\.set *=.*$/network.port_random.set = no/g' /downloads/.rtorrent/.rtorrent.rc
     sed -i 's/dht\.port\.set *=.*$/dht.port.set = '$RT_DHT_PORT'/g' /downloads/.rtorrent/.rtorrent.rc
-    sed -i 's/\$scgi_port *= *5000;/$cgi_port = '$RT_SCGI_PORT';/g' /var/www/rutorrent/conf/config.php
+    sed -i 's/scgi_port *= *5000;/cgi_port = '$RT_SCGI_PORT';/g' /var/www/rutorrent/conf/config.php
 fi
 ln -s /downloads/.rtorrent/.rtorrent.rc /home/rtorrent/
 chown -R rtorrent:rtorrent /downloads/.rtorrent
