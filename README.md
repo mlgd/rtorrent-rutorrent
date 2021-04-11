@@ -1,5 +1,9 @@
 # Docker container with rTorrent and ruTorrent
 
+Alpine-based tags:
+
+- rtorrent-rutorrent:alpine-latest
+
 Debian-based tags:
 
 - rtorrent-rutorrent:debian-buster-slim
